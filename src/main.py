@@ -46,7 +46,7 @@ app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
 
 
 @app.get(
-    "/",
+    "/", 
     tags=["root"],
     response_model=RootResponse,
     summary="API Overview",
@@ -117,3 +117,8 @@ async def global_exception_handler(request: Request, exc: Exception):
             "detail": str(exc)
         }
     )
+if __name__ == "__main__":
+    import uvicorn
+    import os
+    port = int(os.getenv("PORT", 10000))
+    uvicorn.run("src.main:app", host="0.0.0.0", port=port)
